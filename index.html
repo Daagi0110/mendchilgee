@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Төрсөн Өдрийн Мэнд!</title>
+    <style>
+        body {
+            background-color: #ffebf0;
+            text-align: center;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+        }
+
+        .text-line {
+            font-size: 28px;
+            font-weight: bold;
+            color: #d63384;
+            display: none;
+            position: relative;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 20px;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 60px;
+            height: 80px;
+            border-radius: 50%;
+            animation: floatUp 6s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .balloon::after {
+            content: "🎈";
+            font-size: 40px;
+            position: absolute;
+            top: -30px;
+        }
+
+        .happy-text {
+            position: absolute;
+            bottom: -20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            width: 100%;
+            text-align: center;
+        }
+
+        .red { background-color: red; }
+        .blue { background-color: blue; }
+        .yellow { background-color: yellow; }
+        .pink { background-color: pink; }
+        .purple { background-color: purple; }
+        .green { background-color: green; }
+        .orange { background-color: orange; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="text-line">Гоё сайхан байгаль сэтгэл баясгах увьдастай ч</div>
+        <div class="text-line">Голын намуухан шивнээ сэтгэл гэгэлзүүлэх шидтэй ч</div>
+        <div class="text-line">Ганцхан олдох насны гэгээн тунгалаг наран яи минь</div>
+        <div class="text-line">Гандаж хувирашгүй илүү байж чадахгүйнээ</div>
+        <div class="text-line">Чамдаа төрсөн өдрийн мэнд хүргэе 🥳💖</div>
+    </div>
+
+    <script>
+        let textLines = document.querySelectorAll(".text-line");
+
+        function showText() {
+            textLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.display = "block";
+                    createFlowersAround(line);
+                }, index * 2000);
+            });
+        }
+
+        function createFlowersAround(element) {
+            let flowers = ["🌸", "🌼", "🌺", "💮", "🌻"];
+            let rect = element.getBoundingClientRect();
+
+            for (let i = 0; i < 6; i++) {
+                let flower = document.createElement("div");
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.classList.add("flower");
+
+                flower.style.left = rect.left + Math.random() * rect.width + "px";
+                flower.style.top = rect.top - 30 + Math.random() * 20 + "px";
+
+                document.body.appendChild(flower);
+                setTimeout(() => flower.remove(), 4000);
+            }
+        }
+
+        function createBalloon() {
+            let balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+
+            let colors = ["red", "blue", "yellow", "pink", "purple", "green", "orange"];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.classList.add(randomColor);
+
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.animationDuration = (Math.random() * 2 + 4) + "s";
+
+            let happyText = document.createElement("div");
+            happyText.classList.add("happy-text");
+            happyText.innerHTML = "Happy Day";
+
+            balloon.appendChild(happyText);
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 6000);
+        }
+
+        showText();
+        setInterval(createBalloon, 800);
+
+    </script>
+
+</body>
+</html>
